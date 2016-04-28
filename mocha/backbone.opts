@@ -1,0 +1,5 @@
+--reporter spec
+--timeout 5000
+--compilers js:babel-register
+--require ./mocha/bootstrap/backbone
+./mocha/tests/backbone/*-test.js*

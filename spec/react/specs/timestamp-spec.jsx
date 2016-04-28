@@ -8,8 +8,6 @@ import Timestamp from 'react/timestamp';
 
 
 describe('Timestamp', function() {
-    var sinonUtils = TestUtils.Sinon.call(this);
-
     // Set up our vars that will be reset on each test
     var renderer, timestamp, sandbox;
     beforeEach(function() {
@@ -19,7 +17,6 @@ describe('Timestamp', function() {
         timestamp = new Date();
     });
 
-    // After every test, we'll reset the sinon
     afterEach(function() {
         jasmine.clock().uninstall();
     });

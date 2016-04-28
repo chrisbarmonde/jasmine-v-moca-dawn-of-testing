@@ -9,8 +9,6 @@ import Timestamp from 'react/timestamp';
 
 
 describe('Timestamp', function() {
-    var sinonUtils = TestUtils.Sinon.call(this);
-
     // Set up our vars that will be reset on each test
     var renderer, timestamp, sandbox;
     beforeEach(function() {

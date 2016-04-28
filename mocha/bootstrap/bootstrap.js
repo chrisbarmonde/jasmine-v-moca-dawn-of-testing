@@ -1,6 +1,5 @@
 import chai from 'chai';
-import jsdom from './jsdom';
-import nock from 'nock'; // disable all http requests
+import jsdom from 'test-utils/jsdom';
 
 // Include the stack trace
 chai.config.includeStack = true;
@@ -9,7 +8,6 @@ chai.config.includeStack = true;
 global.assert = chai.assert;
 global.expect = chai.expect;
 global.should = chai.should();
-
 
 // Set up DOM
 jsdom();

@@ -1,5 +1,5 @@
 --reporter spec
 --timeout 5000
 --compilers js:babel-register,jsx:babel-register
---require ./src/test-utils/mocha
-./mocha/**/*-test.js*
+--require ./mocha/bootstrap/react
+./mocha/tests/react/*-test.js*

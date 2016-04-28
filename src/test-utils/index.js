@@ -32,7 +32,6 @@ TestUtils.unmountComponent = function(component) {
  */
 TestUtils.getTextFromComponent = function(component, isRecursing) {
     var text = '';
-console.log(component.props, component.props.children);
     if (component.props && component.props.children) {
         if (_.isArray(component.props.children)) {
             text = _(component.props.children).reduce(function(memo, child) {
