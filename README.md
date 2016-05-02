@@ -1,6 +1,10 @@
 # Jasmine v Mocha: Dawn of Testing
 
-This repo shows some of the differences between Jasmine and Mocha+chai+sinon javascript testing in node, with React or Backbone + underscore.
+This repo shows some of the differences between Jasmine and Mocha+Chai+Sinon (MCS) javascript testing in node, with React or Backbone + underscore.
+
+## Syntax
+
+There is more or less a direct one-to-one correlation in functionality between Jasmine and MCS, and in many cases, the syntax is identical. The biggest differences appear in the way spies work, as Sinon and Jasmine tend to use their own set of vocabulary to define how they work. But, functionally, they have APIs that do the same things.
 
 ### Creating Tests
 
@@ -67,3 +71,35 @@ This repo shows some of the differences between Jasmine and Mocha+chai+sinon jav
 | Tick | `jasmine.clock().tick(1000)` | `clock.tick(1000)` |
 
 
+## Testing AJAX/fetch
+Perhaps the largest divergence comes in how you test AJAX or fetch calls between the two, as there are some bizarre differences in which libraries do or don't work.
+
+### fetch
+If you use React, odds are you don't need to use jQuery since most of its functionality (query selectors, primarily) aren't very useful in the React world. In that case, you'll also be losing `$.ajax`. But in 99% of cases, it'll be much easier to use `fetch` instead.
+
+See [https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch](Using Fetch) for details on the API, but it's essentially a promise-based, light-weight alternative to `XMLHTTPRequest` that will work for almost all generic REST-y requests. While the API is fully-implemented in Chrome, you'll likely need a [https://github.com/github/fetch](polyfill) for other browsers.
+
+With that out of the way, in order to test fetch in node, the easiest way is to use the npm libary (https://www.npmjs.com/package/nock)[Nock]. As you can see in the docs, it has a ton of configuration for how to create your tests. The big thing to note, however, is that it can only intercept requests that use node's `http` library underneath, which the above polyfill will do.
+
+### $.ajax and Mocha
+When it comes to using jQuery and `$.ajax` with Mocha, your best bet for testing will be [https://github.com/jakerella/jquery-mockjax](Mockjax). It has most of the same features as Nock, but works with XMLHTTPRequest calls, and I believe it specifically hooks into `$.ajax`.
+
+### $.ajax and Jasmine
+For god knows what reason, Mockjax doesn't work inside of Jasmine. I'm sure there's a method to the madness, but I didn't have time to research it.
+
+Fortunately, Jasmine has their own ajax testing plugin, [https://github.com/jasmine/jasmine-ajax](Jasmine Ajax). It works well, but it's unfortunately a bit behind the other two in terms of ease-of-use. You'll have to do a lot of manual setup without the ability to set defaults or anything without baking that all in yourself.
+
+
+## Reporters
+Mocha comes with a [vast array of built-in reporters](http://mochajs.org/#reporters), some more useful than others, but all pretty interesting.
+
+Jasmine, as far as I can tell, just has the dot reporter as its default for node. You have the ability to [create your own custom reporters](http://jasmine.github.io/2.4/custom_reporter.html) (which Mocha also supports), but it doesn't seem like any others are baked in.
+
+## Conclusion
+The real conclusion?
+
+`¯\_(ツ)_/¯`
+
+All things considered, the two pretty much live in parity with one another. It ultimately just depends on what your team likes best. Jasmine is an all-in-one package that includes everything out of the box, but Mocha is built to be more of an ecosystem that allows other developers to inject whatever they feel is best.
+
+I personally prefer the syntax of Chai's assertions in a BDD environment as they feel more like real sentences than calling a bunch of functions in Jasmine.
